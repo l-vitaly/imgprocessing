@@ -21,7 +21,7 @@ FROM alpine
 
 RUN apk --update add ca-certificates
 
-COPY ./service /bin/service
+COPY --from=builder /app/service /service
 
 EXPOSE 9000
 
