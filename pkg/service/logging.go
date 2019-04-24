@@ -16,14 +16,14 @@ type LoggingService struct {
 
 func (s *LoggingService) Resize(ctx context.Context, data []byte, width int, height int) (err error) {
 	defer func(begin time.Time) {
-		s.logger.Log("ctx", ctx, "data", data, "width", width, "height", height, "err", err, "took", time.Since(begin))
+		s.logger.Log("width", width, "height", height, "err", err, "took", time.Since(begin))
 	}(time.Now())
 	return s.next.Resize(ctx, data, width, height)
 }
 
 func (s *LoggingService) ResizeByURL(ctx context.Context, url string, width int, height int) (err error) {
 	defer func(begin time.Time) {
-		s.logger.Log("ctx", ctx, "url", url, "width", width, "height", height, "err", err, "took", time.Since(begin))
+		s.logger.Log("url", url, "width", width, "height", height, "err", err, "took", time.Since(begin))
 	}(time.Now())
 	return s.next.ResizeByURL(ctx, url, width, height)
 }
