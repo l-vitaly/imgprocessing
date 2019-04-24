@@ -27,7 +27,7 @@ type Config struct {
 func Parse() (*Config, error) {
 	cfg := &Config{}
 
-	goenv.StringVar(&cfg.BindAddr, BindAddrEnvName, ":9000")
+	goenv.StringVar(&cfg.BindAddr, BindAddrEnvName, "0.0.0.0:9000")
 	goenv.StringVar(&cfg.SavePath, SavePathEnvName, "./images")
 
 	goenv.Parse()

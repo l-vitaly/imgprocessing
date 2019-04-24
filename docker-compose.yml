@@ -5,6 +5,10 @@ services:
       context: ./
       dockerfile: Dockerfile
     restart: unless-stopped
+    environment:
+      IMG_PROC_SAVE_PATH: "/images"
+    volumes:
+      - "./data:/images"
     ports:
       - "9000"
     logging:
