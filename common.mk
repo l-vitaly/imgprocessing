@@ -9,7 +9,7 @@ GIT_TAG=$(shell git tag -l --contains HEAD)
 # Git current branch 
 GIT_BRANCH=$(shell git symbolic-ref HEAD | sed -e 's|^refs/heads/||' | sed -e 's|_.*||')
 
-DEFAULT_BINARY=service_${GIT_BRANCH}
+DEFAULT_BINARY=service
 
 ifeq ($(CMD_PATH),)
 $(error "not set CMD_PATH. please set CMD_PATH and retry now")

@@ -9,6 +9,8 @@ RUN go mod download
 
 FROM build_base AS builder
 
+WORKDIR /app
+
 COPY . .
 
 RUN	make build; \
