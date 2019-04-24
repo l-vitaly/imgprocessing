@@ -19,11 +19,9 @@ RUN	make build; \
 
 FROM alpine
 
-ARG BINARY
-
 RUN apk --update add ca-certificates
 
-COPY ./${BINARY} /bin/service
+COPY ./service /bin/service
 
 EXPOSE 9000
 
