@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Image Processing
+  version: 1.0.0
+paths:
+  /resize:
+    post:
+      summary: Resize
+      parameters:
+        - name: witdh
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: height
+          in: query
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  format: binary
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResizeRequest"
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      summary: ResizeByURL
+      parameters:
+        - name: url
+          in: query
+          schema:
+            type: string
+        - name: witdh
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: height
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    ResizeRequest:
+      properties:
+        data:
+          type: string
+          format: byte

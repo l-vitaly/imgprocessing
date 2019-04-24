@@ -1,0 +1,13 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./
+      args:
+        BINARY: ${BINARY}
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "9000"
+    logging:
+      driver: "json-file"
