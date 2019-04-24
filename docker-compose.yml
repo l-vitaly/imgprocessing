@@ -3,8 +3,6 @@ services:
   app:
     build:
       context: ./
-      args:
-        BINARY: ${BINARY}
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
