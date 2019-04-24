@@ -15,10 +15,19 @@ import (
 // Injectors from wire.go:
 
 func SetupHTTPHandler(savedPath string, logger log.Logger, opts ...http.ServerOption) (http2.Handler, func(), error) {
-	serviceService := service.NewService(savedPath)
-	set := service.MakeEndpoints(serviceService)
+	serviceInterface := ProvideService(savedPath, logger)
+	set := service.MakeEndpoints(serviceInterface)
 	encodeDecodeSet := service.MakeEncodeDecodeSet()
-	handler := service.NewHTTPHandler(serviceService, set, encodeDecodeSet, logger, opts...)
+	handler := service.NewHTTPHandler(serviceInterface, set, encodeDecodeSet, logger, opts...)
 	return handler, func() {
 	}, nil
+}
+
+// wire.go:
+
+func ProvideService(
+	savePath string,
+	logger log.Logger,
+) service.Interface {
+	return service.NewLoggingService(service.NewService(savePath), logger)
 }

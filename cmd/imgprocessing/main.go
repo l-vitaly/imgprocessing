@@ -40,6 +40,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	err = os.MkdirAll(cfg.SavePath, 0755)
+	if err != nil {
+		level.Error(logger).Log("err", err)
+		os.Exit(1)
+	}
+
 	h, cleanup, err := wire.SetupHTTPHandler(
 		cfg.SavePath,
 		logger,

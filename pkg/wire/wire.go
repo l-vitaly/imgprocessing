@@ -13,13 +13,21 @@ import (
 
 func SetupHTTPHandler(savedPath string, logger log.Logger, opts ...kithttp.ServerOption) (http.Handler, func(), error) {
 	stdwire.Build(
-		stdwire.Bind(new(service.Interface), (*service.Service)(nil)),
-
 		service.NewHTTPHandler,
 		service.MakeEndpoints,
 		service.MakeEncodeDecodeSet,
 
-		service.NewService,
+		ProvideService,
 	)
 	return nil, nil, nil
+}
+
+func ProvideService(
+	savePath string,
+	logger log.Logger,
+) service.Interface {
+	return service.NewLoggingService(
+		service.NewService(savePath),
+		logger,
+	)
 }
